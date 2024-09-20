@@ -9,3 +9,8 @@ class User:
 
     def __str__(self):
         return f"{self.name}, {self.user_id}, {self.password}, {self.loan_count}, {self.loan_date}, {self.is_admin}"
+
+class UserManager:
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.users = self.load_users()
