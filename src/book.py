@@ -54,3 +54,13 @@ class BookManager:
                 print(f"책 '{book.title}'이(가) 삭제되었습니다.")
                 return
         print(f"ID가 {book_id}인 책을 찾을 수 없습니다.")
+
+    def display_books(self, count=None):
+        if not self.books:
+            print("등록된 책이 없습니다.")
+        else:
+            sorted_books = sorted(self.books, key=lambda book: int(book.book_id))
+            if count is None or count > len(sorted_books):
+                count = len(sorted_books)
+            for book in sorted_books[:count]:
+                print(f"책 ID: {book.book_id}, 제목: {book.title}, 상태: {'대출 중' if book.is_loaned else '대출 가능'}")
