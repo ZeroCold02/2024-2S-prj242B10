@@ -45,3 +45,12 @@ class BookManager:
         self.books.append(new_book)
         self.save_books()
         print(f"책 '{title}'이(가) ID '{new_book_id}'로 등록되었습니다.")
+
+    def delete_book(self, book_id):
+        for book in self.books:
+            if book.book_id == book_id:
+                self.books.remove(book)
+                self.save_books()
+                print(f"책 '{book.title}'이(가) 삭제되었습니다.")
+                return
+        print(f"ID가 {book_id}인 책을 찾을 수 없습니다.")
