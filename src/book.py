@@ -64,3 +64,11 @@ class BookManager:
                 count = len(sorted_books)
             for book in sorted_books[:count]:
                 print(f"책 ID: {book.book_id}, 제목: {book.title}, 상태: {'대출 중' if book.is_loaned else '대출 가능'}")
+
+    def search_book(self, title):
+        found_books = [book for book in self.books if title.lower() in book.title.lower()]
+        if found_books:
+            for book in found_books:
+                print(book)
+        else:
+            print(f"'{title}' 제목의 책을 찾을 수 없습니다.")
