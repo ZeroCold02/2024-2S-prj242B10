@@ -24,3 +24,9 @@ class BookManager:
                     title, book_id, is_loaned = row
                     books.append(Book(title, book_id, is_loaned == 'True'))
         return books
+
+    def save_books(self):
+        with open(self.file_path, 'w', encoding='utf-8', newline='') as file:
+            writer = csv.writer(file)
+            for book in self.books:
+                writer.writerow([book.title, book.book_id, book.is_loaned])
