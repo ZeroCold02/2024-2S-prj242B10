@@ -1,5 +1,6 @@
 import csv
 import os
+import random
 
 class Book:
     def __init__(self, title, book_id, is_loaned=False):
@@ -30,3 +31,17 @@ class BookManager:
             writer = csv.writer(file)
             for book in self.books:
                 writer.writerow([book.title, book.book_id, book.is_loaned])
+
+    def generate_book_id(self):
+        existing_ids = {book.book_id for book in self.books}
+        while True:
+            new_book_id = str(random.randint(1000, 9999))
+            if new_book_id not in existing_ids:
+                return new_book_id
+
+    def register_book(self, title):
+        new_book_id = self.generate_book_id()
+        new_book = Book(title, new_book_id)
+        self.books.append(new_book)
+        self.save_books()
+        print(f"책 '{title}'이(가) ID '{new_book_id}'로 등록되었습니다.")
