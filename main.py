@@ -1,33 +1,6 @@
-import re
 from src.book import BookManager
-
-
-def admin_menu():
-    """관리자 메뉴"""
-    print("[관리자 메뉴]")
-    print("0. 로그아웃")
-    print("1. 도서 등록")
-    print("2. 도서 삭제")
-    print("3. 도서 검색")
-    print("4. 도서 조회")
-
-
-def validate_book_title(title):
-    if re.fullmatch(r'^[a-zA-Z가-힣\s]{1,50}$', title):
-        return True
-    return False
-
-def validate_book_id(book_id):
-    return book_id.isdigit() and len(book_id) == 4
-
-def validate_book_exist(book_id):
-    return any(book.book_id == book_id for book in BookManager().books)
-
-def validate_book_can_borrow(book_id):
-    for book in BookManager().books:
-        if book.book_id == book_id:
-            return not book.is_loaned
-    return False
+from manager.validation import validate_book_title, validate_book_id, validate_book_exist, validate_book_can_borrow
+from manager.ui import admin_menu
 
 def main():
     book_manager = BookManager()

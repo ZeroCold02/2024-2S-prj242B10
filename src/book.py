@@ -76,10 +76,15 @@ class BookManager:
             print("=" * 75)
 
     def search_book_by_title(self, title):
-        title = title.strip().lower()
-        found_books = [book for book in self.books if title in book.title.strip().lower()]
-        if found_books:
-            for book in found_books:
-                print(book)
+        title = title.strip()
+        found_books = [book for book in self.books if book.title.strip() == title]
+        sorted_books = sorted(found_books, key=lambda book: book.book_id)
+        print(f"{'도서 ID':<9} {'도서 제목':<53} {'상태':<5}")
+        print("=" * 75)
+        if sorted_books:
+            for book in sorted_books:
+                status = '대출 중' if book.is_loaned else '대출 가능'
+                print(f"{book.book_id:<10} {book.title:<55} {status:<10}")
+            print("=" * 75)
         else:
             print(f"'{title}' 제목의 도서를 찾을 수 없습니다. 사용자 메뉴로 돌아갑니다.")
